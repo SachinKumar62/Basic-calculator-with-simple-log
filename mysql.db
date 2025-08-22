@@ -1,0 +1,17 @@
+CREATE TABLE users (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    password_hash VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE calculation_history (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT,
+    expression VARCHAR(500) NOT NULL,
+    result VARCHAR(50) NOT NULL,
+    calculation_timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    INDEX idx_user_timestamp (user_id, calculation_timestamp)
+);
